@@ -30,6 +30,19 @@ def login(br):
     else:
         print('未打开登录界面')
 
+def attendance_info(br):
+    '''获取考勤信息'''
+    print('正在获取考勤信息')
+    attendance_link = br.find_element_by_link_text('考勤信息')
+    attendance_link.click()
+
+    holiday_balance = br.find_element_by_xpath('//*[@id="ctl00_ContentMain_lblNXJYE"]').text
+    extra_work_time = br.find_element_by_xpath('//*[@id="ctl00_ContentMain_lblYXGS"]').text
+    abnormal_attendance = br.find_element_by_xpath('//*[@id="ctl00_ContentMain_lblKQYCS"]').text
+
+    print('年休假余额：%s天'%holiday_balance)
+    print('有效工时余额：%s小时'%extra_work_time)
+    print('月度考勤异常：%s'%abnormal_attendance)
 
 
 def logout(br):
@@ -49,6 +62,7 @@ def main():
     br.get(url)
     time.sleep(3)
     login(br)
+    attendance_info(br)
     logout(br)
 
     time.sleep(5)
